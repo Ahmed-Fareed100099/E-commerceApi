@@ -1,8 +1,8 @@
 import { Router } from "express";
-import getAllSubCategories, { createSubCategory, DeleteSubCategory, getSubCategories, updateSubCategory } from "../controllers/subcategories";
-const subCategoriesRoute:Router = Router()
+import getAllSubCategories, { createSubCategory, DeleteSubCategory, FilterSubCategories, getSubCategories, updateSubCategory } from "../controllers/subcategories";
+const subCategoriesRoute:Router = Router({mergeParams:true})
 subCategoriesRoute.route('/')
-.get(getAllSubCategories)
+.get(FilterSubCategories,getAllSubCategories)
 .post(createSubCategory)
 subCategoriesRoute.route('/:id')
 .get(getSubCategories)

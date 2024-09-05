@@ -1,9 +1,11 @@
 import {Router} from 'express';
-import { createCategory, getall ,getCategory ,updateCategory ,deleteCategory} from '../controllers/categories';
+import { createCategory, getCategory ,updateCategory ,deleteCategory, getAllCategories} from '../controllers/categories';
+import subCategoriesRoute from './subCategoriesRoute';
 
 const categoriesRoute:Router = Router()
+categoriesRoute.use('/:categoryId/subcategories',subCategoriesRoute)
  categoriesRoute.route('/')
- .get(getall)
+ .get(getAllCategories)
  .post(createCategory)
  export default categoriesRoute
  categoriesRoute.route('/:id')
