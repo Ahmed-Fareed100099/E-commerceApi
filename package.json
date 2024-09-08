@@ -4,7 +4,7 @@
   "main": "app.ts",
   "scripts": {
     "start:dev": "nodemon app.ts",
-    "start:prod": "node./dist/app.ts",
+    "start:prod": "NODE_ENV=product node ./dist/app.js",
     "build": "tsc"
   },
   "keywords": [],
@@ -16,6 +16,7 @@
     "e-commerce": "file:",
     "express": "^4.19.2",
     "express-async-handler": "^1.2.0",
+    "express-validator": "^7.2.0",
     "mongoose": "^8.6.0"
   },
   "devDependencies": {

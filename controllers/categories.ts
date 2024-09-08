@@ -1,8 +1,7 @@
 import { NextFunction } from "express";
 import categoriesModel from "../Models/categoriesModel";
 import { Categories } from "../interfaces/categories";
-import asyncHandler from "express-async-handler";
-import express from 'express'
+
 import { Create, DeleteOne, getAll , getOne, updateOne } from "./refactorHandling";
 
 export const getAllCategories= getAll<Categories>(categoriesModel,'Categories');
