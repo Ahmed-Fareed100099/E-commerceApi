@@ -4,5 +4,6 @@ declare module 'express'{
 
   interface Request{
       FilterData?:FilterData
+      files?:any;
   }
 }
