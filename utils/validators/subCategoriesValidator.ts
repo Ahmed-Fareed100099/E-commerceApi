@@ -34,9 +34,9 @@ export const deleteSubcategoryValidator:RequestHandler[] = [
   check('id')
   .isMongoId().withMessage('invalid mongoId')
   .custom(async(val)=>{
-    const products =await productsModel.find({subCategory : val})
-    if(products.length>0){
-      const bulkOption = products.map((product:products)=>({
+    const product =await productsModel.find({subCategory : val})
+    if(product.length>0){
+      const bulkOption = product.map((product:products)=>({
         deleteOne:{filter:{_id:product._id}}
       }))
       await productsModel.bulkWrite(bulkOption)
