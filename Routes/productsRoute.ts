@@ -1,10 +1,10 @@
 import { Router } from "express";
 import { getAll } from '../controllers/refactorHandling';
-import { createProduct, deleteProduct, filterProducts, getAllProducts, getProduct, updateProduct } from "../controllers/products";
+import { createProduct, deleteProduct, filterProducts, getAllProducts, getProduct, resizeProductImages, updateProduct, uploadProductImages } from "../controllers/products";
 import { createProductValidator, deleteProductValidator, getProductValidator, updateProductValidator } from "../utils/validators/productValidator";
 const productsRoute:Router = Router({mergeParams:true});
 productsRoute.route('/')
-.get(filterProducts,getAllProducts)
+.get(uploadProductImages,resizeProductImages,filterProducts,getAllProducts)
 .post(createProductValidator,createProduct)
 productsRoute.route('/:id')
 .get(getProductValidator,getProduct)

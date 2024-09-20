@@ -7,14 +7,20 @@ import Features from "../utils/validators/features";
 export const getAll =<modelType> (model:Model<any>,modelName:string)=>
   asyncHandler(async(req:Request,res:Response , next:NextFunction)=>{
     let filterData:any ={};
+    let searchLength:number = 0;
     if(req.FilterData){
       filterData = req.FilterData;
     }
-    const documentsCount:number = await model.find().countDocuments();
+    if(req.query){
+      let searchResult:Features=  new Features(model.find(filterData),req.query).filter().search(modelName);
+      let searchData:modelType[] =await searchResult.mongooseQuery
+      searchLength = searchData.length
+    }
+    const documentsCount:number =searchLength|| await model.find().countDocuments();
     const features = new Features(model.find(filterData),req.query).sort().fields().search(modelName).pagination(documentsCount);
-    const mongooseQuery = features.mongooseQuery;
+    const {mongooseQuery,paginationResult} = features;
     const document:modelType[] = await mongooseQuery
-    res.status(200).json({data:document})
+    res.status(200).json({length:document.length,pagination:paginationResult,data:document})
   });
   export const getOne = <modelType>(model:Model<any>,modelName:string)=>
     asyncHandler(async(req:Request , res:Response , next:NextFunction)=>{

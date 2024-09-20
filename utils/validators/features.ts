@@ -59,5 +59,16 @@ class Features{
     return this;
   }
 
+  filter(){
+    const querystringObj = {...this.querystring}
+    const executedFields:string[] = ['sort','search','fields','page','limit']
+    executedFields.forEach((field:string)=>{
+      delete querystringObj[field] 
+    })
+    let queryStr:string = JSON.stringify(querystringObj)
+    queryStr.replace(/\b(gte|gt|lte|lt)\b/g , match =>`$${match}`)
+    this.mongooseQuery = this.mongooseQuery.find(JSON.parse(queryStr))
+    return this;
+  }
 }
 export default Features;
